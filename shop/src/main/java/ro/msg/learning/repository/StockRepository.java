@@ -5,10 +5,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import ro.msg.learning.model.Stock;
+import ro.msg.learning.model.StockKey;
 
 @EntityScan("ro.msg.learning.model")
 
 @Repository
-public interface StockRepository extends JpaRepository<Stock, Integer> {
+public interface StockRepository extends JpaRepository<Stock, StockKey> {
 
 }
