@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS `product` (
 
     `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `name` varchar(100),
+    `name` varchar(100) NOT NULL,
     `description` varchar(100),
     `price` numeric,
     `weight` float(14), 

@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS `product_category` (
 
     `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `name` varchar(100),
+    `name` varchar(100) NOT NULL,
     `description` varchar(100)
 );

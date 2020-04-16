@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS `order` (
 
     `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `shipped_from` int,
-    `customer` int,
+    `customer` int NOT NULL,
     `created_at` date,
     `country` varchar(100),
     `city` varchar(100),
