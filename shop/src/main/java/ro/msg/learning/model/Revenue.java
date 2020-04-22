@@ -10,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -19,17 +18,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity(name = "Revenue")
-@Table(name = "revenue")
+@Table(name = "revenue", schema = "shop")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class Revenue {
 	
 	@Id
 	@Column(name = "id", nullable = false, unique = true)
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private Integer id;
 	
 	@ManyToOne
-	@MapsId("location")
 	@JoinColumn(name = "location")
 	private Location location;
 	

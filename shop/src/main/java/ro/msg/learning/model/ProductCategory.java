@@ -16,14 +16,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity(name = "ProductCategory")
-@Table(name = "product_category")
+@Table(name = "product_category", schema = "shop")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class ProductCategory {
 
 	@Id
 	@Column(name = "id", nullable = false, unique = true)
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 	
 	@Column(name = "name", nullable = false)
 	private String name;
@@ -31,6 +31,6 @@ public class ProductCategory {
 	@Column(name = "description")
 	private String description;
 	
-	@OneToMany(mappedBy="product_category")
+	@OneToMany(mappedBy="category")
     private Set<Product> products;
 }

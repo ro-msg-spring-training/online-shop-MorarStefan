@@ -19,8 +19,8 @@ public class OrderDetailKey implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "order", nullable = false)
-	private int orderId;
+	private Integer orderId;
 
 	@Column(name = "product", nullable = false)
-	private int productId;
+	private Integer productId;
 }

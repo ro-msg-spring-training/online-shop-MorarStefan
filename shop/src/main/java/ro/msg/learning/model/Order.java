@@ -12,7 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -21,22 +20,20 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity(name = "Order")
-@Table(name = "order")
+@Table(name = "order", schema = "shop")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class Order {
 
 	@Id
 	@Column(name = "id", nullable = false, unique = true)
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private Integer id;
 	
 	@ManyToOne
-	@MapsId("shipped_from")
 	@JoinColumn(name = "shipped_from")
 	private Location shippedFrom;
 	
 	@ManyToOne
-	@MapsId("customer")
 	@JoinColumn(name = "customer")
 	private Customer customer;
 	

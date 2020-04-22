@@ -16,14 +16,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity(name = "Customer")
-@Table(name = "customer")
+@Table(name = "customer", schema = "shop")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class Customer {
 
 	@Id
 	@Column(name = "id", nullable = false, unique = true)
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private Integer id;
 	
 	@Column(name = "first_name", nullable = false)
 	private String firstName;

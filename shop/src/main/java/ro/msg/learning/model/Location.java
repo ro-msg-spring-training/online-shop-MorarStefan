@@ -19,14 +19,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity(name = "Location")
-@Table(name = "location")
+@Table(name = "location", schema = "shop")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class Location {
 
 	@Id
 	@Column(name = "id", nullable = false, unique = true)
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private Integer id;
 	
 	@Column(name = "name", nullable = false)
 	private String name;
@@ -43,7 +43,7 @@ public class Location {
 	@OneToMany(mappedBy = "location")
 	private Set<Revenue> revenues;
 	
-	@OneToMany(mappedBy = "location")
+	@OneToMany(mappedBy = "shippedFrom")
 	private Set<Order> orders;
 	
 	@OneToMany(mappedBy = "location")

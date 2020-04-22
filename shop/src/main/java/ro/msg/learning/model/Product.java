@@ -10,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -20,14 +19,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity(name = "Product")
-@Table(name = "product")
+@Table(name = "product", schema = "shop")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class Product {
 
 	@Id
 	@Column(name = "id", nullable = false, unique = true)
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 	
 	@Column(name = "name", nullable = false)
 	private String name;
@@ -42,21 +41,19 @@ public class Product {
 	private double weight;
 	
 	@ManyToOne
-	@MapsId("category")
 	@JoinColumn(name = "category")
 	private ProductCategory category;
 	
 	@ManyToOne
-	@MapsId("supplier")
 	@JoinColumn(name = "supplier")
 	private Supplier supplier;
 	
 	@Column(name = "image_url")
 	private String imageUrl;
 	
-	@OneToMany(mappedBy = "customer")
+	@OneToMany(mappedBy = "product")
 	private Set<Stock> stock;
 	
-	@OneToMany(mappedBy = "customer")
+	@OneToMany(mappedBy = "product")
 	private Set<OrderDetail> orderDetails;
 }
