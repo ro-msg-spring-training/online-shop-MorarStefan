@@ -18,9 +18,9 @@ public class StockKey implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "product", nullable = false)
+	@Column(name = "product_id", nullable = false)
 	private int productId;
 
-	@Column(name = "location", nullable = false)
+	@Column(name = "location_id", nullable = false)
 	private int locationId;
 }

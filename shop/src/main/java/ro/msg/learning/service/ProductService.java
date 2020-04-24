@@ -1,77 +1,66 @@
 package ro.msg.learning.service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import ro.msg.learning.dto.ProductDTO;
-import ro.msg.learning.model.OrderDetail;
+import lombok.RequiredArgsConstructor;
 import ro.msg.learning.model.Product;
 import ro.msg.learning.model.ProductCategory;
-import ro.msg.learning.model.Stock;
 import ro.msg.learning.model.Supplier;
 import ro.msg.learning.repository.ProductCategoryRepository;
 import ro.msg.learning.repository.ProductRepository;
 import ro.msg.learning.repository.SupplierRepository;
 
 @Service
+@RequiredArgsConstructor
 public class ProductService {
 
-	@Autowired
-	private ProductRepository productRepository;
+	private final ProductRepository productRepository;
+	private final ProductCategoryRepository categoryRepository;
+	private final SupplierRepository supplierRepository;
 
-	@Autowired
-	private ProductCategoryRepository categoryRepository;
-
-	@Autowired
-	private SupplierRepository supplierRepository;
-
-	public ProductDTO get(Integer id) {
-		Product product = productRepository.findById(id).get();
-		return new ProductDTO(product, product.getCategory(), product.getSupplier());
+	public Product get(Integer id) {
+		Optional<Product> product = productRepository.findById(id);
+		if (product.isPresent()) {
+			return product.get();
+		}
+		return null;
 	}
 
-	public List<ProductDTO> get() {
-		List<ProductDTO> productsDTO = new ArrayList<>();
-		productRepository.findAll().forEach(p -> productsDTO.add(new ProductDTO(p, p.getCategory(), p.getSupplier())));
-		return productsDTO;
+	public List<Product> get() {
+		return productRepository.findAll(); 
 	}
 
-	public ProductDTO save(ProductDTO productDTO) {
-		ProductCategory category = getCategory(productDTO);
-		Supplier supplier = getSupplier(productDTO);
-
-		Product product = new Product(productDTO.getId(), productDTO.getName(), productDTO.getDescription(),
-				productDTO.getPrice(), productDTO.getWeight(), category, supplier, productDTO.getImageUrl(),
-				new HashSet<Stock>(), new HashSet<OrderDetail>());
-		productRepository.save(product);
-
-		return new ProductDTO(product, category, supplier);
+	@Transactional
+	public Product save(Product product) {
+		ProductCategory category = getUpdatedCategory(product.getCategory());
+		Supplier supplier = getSupplier(product.getSupplier());
+		
+		product.setCategory(category);
+		product.setSupplier(supplier);
+		
+		return productRepository.save(product);
 	}
 
-	private ProductCategory getCategory(ProductDTO productDTO) {
-		ProductCategory categoryInDB = categoryRepository.findByName(productDTO.getCategoryName());
+	private ProductCategory getUpdatedCategory(ProductCategory category) {
+		ProductCategory categoryInDB = categoryRepository.findByName(category.getName());
 
 		if (categoryInDB == null) {
-			ProductCategory category = new ProductCategory(null, productDTO.getCategoryName(),
-					productDTO.getCategoryDescription(), new HashSet<Product>());
 			categoryRepository.save(category);
 			return category;
 		}
-		ProductCategory category = new ProductCategory(categoryInDB.getId(), productDTO.getCategoryName(),
-				productDTO.getCategoryDescription(), new HashSet<Product>());
+		category.setId(categoryInDB.getId());
 		categoryRepository.save(category);
 		return category;
 	}
 
-	private Supplier getSupplier(ProductDTO productDTO) {
-		Supplier supplierInDB = supplierRepository.findByName(productDTO.getSupplierName());
+	private Supplier getSupplier(Supplier supplier) {
+		Supplier supplierInDB = supplierRepository.findByName(supplier.getName());
 
 		if (supplierInDB == null) {
-			Supplier supplier = new Supplier(null, productDTO.getSupplierName(), new HashSet<>());
 			supplierRepository.save(supplier);
 			return supplier;
 		}

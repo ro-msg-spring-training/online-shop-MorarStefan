@@ -1,7 +1,6 @@
 package ro.msg.learning.model;
 
 import java.math.BigDecimal;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -41,19 +39,13 @@ public class Product {
 	private double weight;
 	
 	@ManyToOne
-	@JoinColumn(name = "category")
+	@JoinColumn(name = "category_id")
 	private ProductCategory category;
 	
 	@ManyToOne
-	@JoinColumn(name = "supplier")
+	@JoinColumn(name = "supplier_id")
 	private Supplier supplier;
 	
 	@Column(name = "image_url")
 	private String imageUrl;
-	
-	@OneToMany(mappedBy = "product")
-	private Set<Stock> stock;
-	
-	@OneToMany(mappedBy = "product")
-	private Set<OrderDetail> orderDetails;
 }

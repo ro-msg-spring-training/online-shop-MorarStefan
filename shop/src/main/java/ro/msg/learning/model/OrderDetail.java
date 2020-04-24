@@ -19,18 +19,18 @@ import lombok.Setter;
 public class OrderDetail {
 
 	@EmbeddedId
-	private StockKey id;
+	private OrderDetailKey id;
 	
 	@Column(name = "quantity", nullable = false)
 	private int quantity;
 	
 	@ManyToOne
 	@MapsId("orderId")
-	@JoinColumn(name = "order")
+	@JoinColumn(name = "order_id")
 	private Order order;
 
 	@ManyToOne
 	@MapsId("productId")
-	@JoinColumn(name = "product")
+	@JoinColumn(name = "product_id")
 	private Product product;
 }

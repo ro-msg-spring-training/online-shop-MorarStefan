@@ -2,7 +2,6 @@ package ro.msg.learning.dto;
 
 import java.math.BigDecimal;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,7 +9,7 @@ import ro.msg.learning.model.Product;
 import ro.msg.learning.model.ProductCategory;
 import ro.msg.learning.model.Supplier;
 
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Getter @Setter @NoArgsConstructor
 public class ProductDTO {
 
 	private int id;
@@ -23,19 +22,21 @@ public class ProductDTO {
 	private String categoryDescription;
 	private String supplierName;
 
-	public ProductDTO(Product product, ProductCategory category, Supplier supplier) {
-		setFields(product, category, supplier);
-	}
-
-	private void setFields(Product product, ProductCategory category, Supplier supplier) {
+	public ProductDTO(Product product) {
 		id = product.getId();
 		name = product.getName();
 		description = product.getDescription();
 		price = product.getPrice();
 		weight = product.getWeight();
 		imageUrl = product.getImageUrl();
-		categoryName = category.getName();
-		categoryDescription = category.getDescription();
-		supplierName = supplier.getName();
+		categoryName = product.getCategory().getName();
+		categoryDescription = product.getCategory().getDescription();
+		supplierName = product.getSupplier().getName();
+	}
+
+	public Product toEntity() {
+		return new Product(id, name, description, price, weight,
+				new ProductCategory(null, categoryName, categoryDescription), new Supplier(null, supplierName),
+				imageUrl);
 	}
 }

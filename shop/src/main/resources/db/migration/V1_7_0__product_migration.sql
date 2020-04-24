@@ -5,11 +5,11 @@ CREATE TABLE IF NOT EXISTS `product` (
     `description` varchar(100),
     `price` numeric,
     `weight` float(14), 
-    `category` int,
-    `supplier` int,
+    `category_id` int,
+    `supplier_id` int,
     `image_url` varchar(100),
-    CONSTRAINT `FK_category` FOREIGN KEY (`category`)
+    CONSTRAINT `FK_category` FOREIGN KEY (`category_id`)
     REFERENCES `product_category`(`id`),
-    CONSTRAINT `FK_supplier` FOREIGN KEY (`supplier`)
+    CONSTRAINT `FK_supplier` FOREIGN KEY (`supplier_id`)
     REFERENCES `supplier`(`id`)
 );

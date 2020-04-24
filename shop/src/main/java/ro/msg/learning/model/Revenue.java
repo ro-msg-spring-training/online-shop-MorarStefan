@@ -28,7 +28,7 @@ public class Revenue {
 	private Integer id;
 	
 	@ManyToOne
-	@JoinColumn(name = "location")
+	@JoinColumn(name = "location_id")
 	private Location location;
 	
 	@Column(name = "date")
