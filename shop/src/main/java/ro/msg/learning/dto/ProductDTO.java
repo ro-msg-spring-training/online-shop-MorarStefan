@@ -10,7 +10,7 @@ import ro.msg.learning.model.ProductCategory;
 import ro.msg.learning.model.Supplier;
 
 @Getter @Setter @NoArgsConstructor
-public class ProductDTO {
+public class ProductDto {
 
 	private int id;
 	private String name;
@@ -22,7 +22,7 @@ public class ProductDTO {
 	private String categoryDescription;
 	private String supplierName;
 
-	public ProductDTO(Product product) {
+	public ProductDto(Product product) {
 		id = product.getId();
 		name = product.getName();
 		description = product.getDescription();

@@ -11,7 +11,7 @@ import ro.msg.learning.repository.StockRepository;
 @RequiredArgsConstructor
 public class OrderStrategyFactory {
 
-	enum Strategy {
+	public enum Strategy {
 		SINGLE_LOCATION, MOST_ABUNDANT
 	}
 

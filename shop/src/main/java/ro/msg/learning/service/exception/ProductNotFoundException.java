@@ -1,4 +1,4 @@
-package ro.msg.learning.controller.exception;
+package ro.msg.learning.service.exception;
 
 public class ProductNotFoundException extends RuntimeException {
 

@@ -6,14 +6,14 @@ import lombok.Setter;
 import ro.msg.learning.model.Address;
 
 @Getter @Setter @NoArgsConstructor
-public class AddressDTO {
+public class AddressDto {
 
 	private String country;
 	private String city;
 	private String county;
 	private String streetAddress;
 	
-	public AddressDTO(Address address) {
+	public AddressDto(Address address) {
 		country = address.getCountry();
 		city = address.getCity();
 		county = address.getCounty();

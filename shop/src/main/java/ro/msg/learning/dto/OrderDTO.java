@@ -14,19 +14,19 @@ import ro.msg.learning.model.Order;
 import ro.msg.learning.model.OrderDetail;
 
 @Getter @Setter @NoArgsConstructor
-public class OrderDTO {
+public class OrderDto {
 
 	private static final Customer DEFAULT_CUSTOMER = new Customer(1, "John", "Doe", "jdoe", "1234", "john.doe@email.org");
 
 	private LocalDateTime createdAt;
-	private AddressDTO address;
-	private List<OrderDetailDTO> products;
+	private AddressDto address;
+	private List<OrderDetailDto> products;
 
-	public OrderDTO(Order order) {
+	public OrderDto(Order order) {
 		createdAt = order.getCreatedAt();
-		address = new AddressDTO(order.getAddress());
+		address = new AddressDto(order.getAddress());
 		products = new ArrayList<>();
-		order.getOrderDetails().forEach(product -> products.add(new OrderDetailDTO(product)));
+		order.getOrderDetails().forEach(product -> products.add(new OrderDetailDto(product)));
 	}
 
 	public Order toEntity() {
