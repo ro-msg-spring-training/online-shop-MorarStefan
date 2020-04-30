@@ -13,6 +13,7 @@ import ro.msg.learning.model.Supplier;
 import ro.msg.learning.repository.ProductCategoryRepository;
 import ro.msg.learning.repository.ProductRepository;
 import ro.msg.learning.repository.SupplierRepository;
+import ro.msg.learning.service.exception.ProductNotFoundException;
 
 @Service
 @RequiredArgsConstructor
@@ -27,10 +28,10 @@ public class ProductService {
 		if (product.isPresent()) {
 			return product.get();
 		}
-		return null;
+		throw new ProductNotFoundException(id);
 	}
 
-	public List<Product> get() {
+	public List<Product> getAll() {
 		return productRepository.findAll(); 
 	}
 
@@ -49,8 +50,7 @@ public class ProductService {
 		ProductCategory categoryInDB = categoryRepository.findByName(category.getName());
 
 		if (categoryInDB == null) {
-			categoryRepository.save(category);
-			return category;
+			return categoryRepository.save(category);	
 		}
 		category.setId(categoryInDB.getId());
 		categoryRepository.save(category);
@@ -61,13 +61,18 @@ public class ProductService {
 		Supplier supplierInDB = supplierRepository.findByName(supplier.getName());
 
 		if (supplierInDB == null) {
-			supplierRepository.save(supplier);
-			return supplier;
+			return supplierRepository.save(supplier);
 		}
 		return supplierInDB;
 	}
 
 	public void delete(Integer id) {
 		productRepository.deleteById(id);
+	}
+	
+	public void deleteAll() {
+		productRepository.deleteAll();
+		categoryRepository.deleteAll();
+		supplierRepository.deleteAll();
 	}
 }

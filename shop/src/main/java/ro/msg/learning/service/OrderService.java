@@ -11,13 +11,13 @@ import ro.msg.learning.model.Location;
 import ro.msg.learning.model.Order;
 import ro.msg.learning.model.Product;
 import ro.msg.learning.model.Stock;
+import ro.msg.learning.repository.CustomerRepository;
 import ro.msg.learning.repository.LocationRepository;
 import ro.msg.learning.repository.OrderDetailRepository;
 import ro.msg.learning.repository.OrderRepository;
 import ro.msg.learning.repository.ProductRepository;
 import ro.msg.learning.repository.StockRepository;
-import ro.msg.learning.service.strategy.OrderStrategyFactory;
-import ro.msg.learning.service.strategy.exception.UnsuccessfulStrategyException;
+import ro.msg.learning.service.strategy.OrderStrategy;
 
 @Service
 @RequiredArgsConstructor
@@ -27,23 +27,25 @@ public class OrderService {
 	private final OrderDetailRepository orderDetailRepository;
 	private final LocationRepository locationRepository;
 	private final ProductRepository productRepository;
+	private final CustomerRepository customerRepository;
 	private final OrderRepository orderRepository;
-	private final OrderStrategyFactory orderStrategyFactory;
+	private final OrderStrategy orderStrategy;
 
 	@Transactional
 	public Order save(Order order) {
-		try {
-			List<Stock> productDistribution = orderStrategyFactory.orderStrategy().processOrder(order);
+		List<Stock> productDistribution = orderStrategy.processOrder(order);
 
-			updateStocks(productDistribution);
-			order.setShippedFrom(getLocationShippedFrom(productDistribution));
-			Order createdOrder = orderRepository.save(order);
-			insertOrderDetails(createdOrder);
+		updateStocks(productDistribution);
+		order.setShippedFrom(getLocationShippedFrom(productDistribution));
+		insertCustomer(order);
+		Order createdOrder = orderRepository.save(order);
+		insertOrderDetails(createdOrder);
 
-			return createdOrder;
-		} catch (UnsuccessfulStrategyException e) {
-			return null;
-		}
+		return createdOrder;
+	}
+
+	private void insertCustomer(Order order) {
+		customerRepository.save(order.getCustomer());
 	}
 
 	private void updateStocks(List<Stock> productDistribution) {
@@ -71,5 +73,11 @@ public class OrderService {
 			return location.get();
 		}
 		return null;
+	}
+
+	public void deleteAll() {
+		orderDetailRepository.deleteAll();
+		orderRepository.deleteAll();
+		customerRepository.deleteAll();
 	}
 }

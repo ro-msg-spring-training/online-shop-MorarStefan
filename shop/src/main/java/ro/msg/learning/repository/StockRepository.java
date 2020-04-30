@@ -11,5 +11,4 @@ public interface StockRepository extends JpaRepository<Stock, StockKey> {
 
 	List<Stock> findByProductId(Integer productId);
 	
-	List<Stock> findByLocationId(Integer locationId);
 }

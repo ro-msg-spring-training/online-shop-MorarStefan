@@ -7,12 +7,12 @@ import ro.msg.learning.model.OrderDetail;
 import ro.msg.learning.model.OrderDetailKey;
 
 @Getter @Setter @NoArgsConstructor
-public class OrderDetailDTO {
+public class OrderDetailDto {
 
 	private Integer productId;
 	private int quantity;
 
-	public OrderDetailDTO(OrderDetail orderDetail) {
+	public OrderDetailDto(OrderDetail orderDetail) {
 		productId = orderDetail.getId().getProductId();
 		quantity = orderDetail.getQuantity();
 	}

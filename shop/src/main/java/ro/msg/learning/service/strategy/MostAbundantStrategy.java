@@ -26,6 +26,10 @@ public class MostAbundantStrategy implements OrderStrategy {
 
 		for (OrderDetail neededProduct : order.getOrderDetails()) {
 			List<Stock> stocks = stockRepository.findByProductId(neededProduct.getId().getProductId());
+			if(stocks.isEmpty()) {
+				throw new UnsuccessfulStrategyException("Unsufficient quantity.");
+			}
+			
 			int maxQuantity = stocks.get(0).getQuantity();
 			Integer maxQuantityLocationId = stocks.get(0).getId().getLocationId();
 
