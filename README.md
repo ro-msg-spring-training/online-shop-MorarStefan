@@ -1,5 +1,6 @@
-Order POST Request JSON example: 
+### Order POST Request JSON example: 
 
+```
 {
     "createdAt": "2020-04-24T17:09:42.411",
     "address": {
@@ -23,9 +24,11 @@ Order POST Request JSON example:
         }
     ]
 }
+```
 
-Product POST Request JSON example: 
+###  Product POST Request JSON example: 
 
+```
 {
 	"id": 3,
     "name": "Samsung J8",
@@ -37,3 +40,4 @@ Product POST Request JSON example:
     "categoryDescription": "Technology",
     "supplierName": "Miller Limited"
 } 
+```
