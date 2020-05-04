@@ -17,6 +17,8 @@ INSERT INTO `location` VALUES(3, 'Location 3', 'Romania', 'Brasov', 'Brasov', 'S
 INSERT INTO `location` VALUES(4, 'Location 4', 'Romania', 'Cluj-Napoca', 'Brasov', 'Str. George Baritiu');
 
 INSERT INTO `customer` VALUES(1, 'John', 'Doe', 'jdoe', '1234', 'john.doe@email.org');
+INSERT INTO `customer` VALUES(2, 'Paul', 'Atreides', 'paulatreides', '0000', 'paul.atr@email.org');
+INSERT INTO `customer` VALUES(3, 'Michael', 'Hannigan', 'mike', 'password', 'mikeh@email.org');
 
 INSERT INTO `stock` VALUES(1, 1, 10);
 INSERT INTO `stock` VALUES(1, 2, 5);
