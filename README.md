@@ -30,7 +30,6 @@
 
 ```
 {
-	"id": 3,
     "name": "Samsung J8",
     "description": "Samsung Phone",
     "price": 150,
